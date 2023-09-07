@@ -1,5 +1,6 @@
 package com.festapp.festapp.services;
 
+import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.entities.Artist;
 import com.festapp.festapp.repositories.ArtistRepository;
 import org.junit.jupiter.api.Assertions;
@@ -18,10 +19,13 @@ class ArtistServiceImplementationTest {
 
     ArtistRepository artistRepository;
 
+    MapperService mapperService;
+
     @Autowired
-    ArtistServiceImplementationTest(ArtistServiceImplementation artistService) {
-        this.artistService = artistService;
+    ArtistServiceImplementationTest() {
         artistRepository = Mockito.mock(ArtistRepository.class);
+        mapperService = Mockito.mock(MapperService.class);
+        this.artistService = new ArtistServiceImplementation(artistRepository, mapperService);
     }
 
     @Test
@@ -29,9 +33,10 @@ class ArtistServiceImplementationTest {
         LocalDateTime date = LocalDateTime.now();
         Artist fakeArtist = new Artist("Kozso");
         fakeArtist.setDate(date);
+        ArtistDTO artistDTO = new ArtistDTO("Kozso", date);
         Mockito.when(artistRepository.findArtistByName("Kozso")).thenReturn(Optional.of(fakeArtist));
-
-        Artist storedArtist = artistRepository.findArtistByName("Kozso").get();
+        Mockito.when(mapperService.convertArtistToArtistDTO(fakeArtist)).thenReturn(artistDTO);
+        ArtistDTO storedArtist = artistService.getArtistByName("Kozso");
 
         Assertions.assertEquals("Kozso", storedArtist.getName());
         Assertions.assertEquals(date, storedArtist.getDate());
