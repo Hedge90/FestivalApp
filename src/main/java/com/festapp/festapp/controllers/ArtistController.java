@@ -23,7 +23,6 @@ public class ArtistController {
 
     @GetMapping(path = "/{name}")
     public ResponseEntity<?> getArtist(@PathVariable String name) {
-        ArtistDTO artistDTO = artistService.getArtistByName(name);
-        return new ResponseEntity<>(artistDTO, HttpStatus.OK);
+        return new ResponseEntity<>(artistService.getArtistByName(name), HttpStatus.OK);
     }
 }
