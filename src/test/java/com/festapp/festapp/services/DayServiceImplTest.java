@@ -29,6 +29,7 @@ public class DayServiceImplTest {
         LocalDate date = LocalDate.of(2023, 9, 6);
         String dayName = "Friday";
         NewDayDTO dayDTO = new NewDayDTO();
+
         dayDTO.setDate(date);
         dayDTO.setName(dayName);
         Day expectedDay = new Day(date, dayName);
