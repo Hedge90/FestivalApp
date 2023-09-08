@@ -1,7 +1,6 @@
 package com.festapp.festapp.controllers;
 
 import com.festapp.festapp.dtos.NewDayDTO;
-import com.festapp.festapp.entities.Day;
 import com.festapp.festapp.services.DayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +22,7 @@ public class DayController {
 
     @PostMapping("/days")
     public ResponseEntity<?> addNewDay(@RequestBody NewDayDTO dayDTO){
-        Day day = dayService.saveNewDay(dayDTO);
-        return new ResponseEntity<>(day, HttpStatus.OK);
+        return new ResponseEntity<>(dayService.saveNewDay(dayDTO), HttpStatus.OK);
     }
 
 

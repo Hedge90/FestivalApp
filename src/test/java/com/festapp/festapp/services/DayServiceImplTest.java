@@ -35,7 +35,7 @@ public class DayServiceImplTest {
         Day expectedDay = new Day(date, dayName);
 
         Mockito.when(dayRepository.save(Mockito.any(Day.class))).thenReturn(expectedDay);
-        Day savedDay = dayService.saveNewDay(dayDTO);
+        NewDayDTO savedDay = dayService.saveNewDay(dayDTO);
         assertNotNull(savedDay);
         assertEquals(date, savedDay.getDate());
         assertEquals(dayName, savedDay.getName());

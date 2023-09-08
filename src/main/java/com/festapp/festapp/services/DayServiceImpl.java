@@ -10,13 +10,15 @@ import org.springframework.stereotype.Service;
 public class DayServiceImpl implements DayService{
 
     private DayRepository dayRepository;
+    private MapperService mapperService;
     @Autowired
-    public DayServiceImpl(DayRepository dayRepository) {
+    public DayServiceImpl(DayRepository dayRepository, MapperService mapperService) {
         this.dayRepository = dayRepository;
+        this.mapperService = mapperService;
     }
 
     @Override
-    public Day saveNewDay(NewDayDTO dayDTO) {
-        return dayRepository.save(new Day(dayDTO.getDate(),dayDTO.getName()));
+    public NewDayDTO saveNewDay(NewDayDTO dayDTO) {
+        return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(),dayDTO.getName())));
     }
 }

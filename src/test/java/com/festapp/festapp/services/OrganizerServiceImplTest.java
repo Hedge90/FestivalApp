@@ -1,6 +1,7 @@
 package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.NewOrganizerDTO;
+import com.festapp.festapp.dtos.NewOrganizerResponseDTO;
 import com.festapp.festapp.entities.Organizer;
 import com.festapp.festapp.repositories.OrganizerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,12 +42,13 @@ public class OrganizerServiceImplTest {
         organizerDTO.setPassword(password);
 
         Organizer expectedOrganizer = new Organizer(orgName,orgEmail,password);
+        expectedOrganizer.setId(1L);
 
         Mockito.when(organizerRepository.save(Mockito.any(Organizer.class))).thenReturn(expectedOrganizer);
-        Organizer organizer = organizerService.saveNewOrganizer(organizerDTO);
+        NewOrganizerResponseDTO organizer = organizerService.saveNewOrganizer(organizerDTO);
         assertNotNull(organizer);
+        assertEquals(expectedOrganizer.getId(),organizer.getId());
         assertEquals(orgName, organizer.getName());
         assertEquals(orgEmail, organizer.getEmail());
-        assertEquals(password, organizer.getPassword());
     }
 }
