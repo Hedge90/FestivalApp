@@ -2,6 +2,7 @@ package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.entities.Artist;
+import com.festapp.festapp.exceptions.ArtistNotFoundException;
 import com.festapp.festapp.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,8 @@ public class ArtistServiceImplementation implements ArtistService {
         Optional<Artist> optionalArtist = artistRepository.findArtistByName(name);
         if (optionalArtist.isPresent()) {
             return mapperService.convertArtistToArtistDTO(optionalArtist.get());
+        } else {
+            throw new ArtistNotFoundException();
         }
-        return null;
     }
 }
