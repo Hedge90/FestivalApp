@@ -12,17 +12,19 @@ import java.util.Optional;
 public class ArtistServiceImplementation implements ArtistService {
 
     private ArtistRepository artistRepository;
+
+    private MapperService mapperService;
     @Autowired
-    public ArtistServiceImplementation(ArtistRepository artistRepository) {
+    public ArtistServiceImplementation(ArtistRepository artistRepository, MapperService mapperService) {
         this.artistRepository = artistRepository;
+        this.mapperService = mapperService;
     }
 
     @Override
     public ArtistDTO getArtistByName(String name) {
         Optional<Artist> optionalArtist = artistRepository.findArtistByName(name);
         if (optionalArtist.isPresent()) {
-            Artist artist = optionalArtist.get();
-            return new ArtistDTO(artist.getName(), artist.getDate());
+            return mapperService.convertArtistToArtistDTO(optionalArtist.get());
         }
         return null;
     }
