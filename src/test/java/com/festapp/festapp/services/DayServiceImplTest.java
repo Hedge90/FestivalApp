@@ -2,6 +2,7 @@ package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.NewDayDTO;
 import com.festapp.festapp.entities.Day;
+import com.festapp.festapp.enums.DayName;
 import com.festapp.festapp.repositories.DayRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,12 +33,12 @@ public class DayServiceImplTest {
 
         dayDTO.setDate(date);
         dayDTO.setName(dayName);
-        Day expectedDay = new Day(date, dayName);
+        Day expectedDay = new Day(date, DayName.FRIDAY);
 
         Mockito.when(dayRepository.save(Mockito.any(Day.class))).thenReturn(expectedDay);
         Day savedDay = dayService.saveNewDay(dayDTO);
         assertNotNull(savedDay);
         assertEquals(date, savedDay.getDate());
-        assertEquals(dayName, savedDay.getName());
+        assertEquals(DayName.FRIDAY, savedDay.getName());
     }
 }

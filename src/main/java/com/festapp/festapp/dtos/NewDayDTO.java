@@ -1,5 +1,6 @@
 package com.festapp.festapp.dtos;
 
+
 import java.time.LocalDate;
 
 public class NewDayDTO {

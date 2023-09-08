@@ -1,6 +1,7 @@
 package com.festapp.festapp.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.festapp.festapp.enums.DayName;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,14 +18,15 @@ public class Day {
     @JsonBackReference
     private List<Artist> artists = new ArrayList<>();
     private LocalDate date;
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private DayName name;
 
 
     public Day() {
         this.artists = new ArrayList<>();
     }
 
-    public Day(LocalDate date, String name) {
+    public Day(LocalDate date, DayName name) {
         this.date = date;
         this.name = name;
     }
@@ -53,11 +55,11 @@ public class Day {
         this.date = date;
     }
 
-    public String getName() {
+    public DayName getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(DayName name) {
         this.name = name;
     }
 }
