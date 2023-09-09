@@ -3,7 +3,7 @@ import com.festapp.festapp.dtos.NewDayDTO;
 import com.festapp.festapp.entities.Day;
 
 public interface DayService {
-    Day saveNewDay(NewDayDTO dayDTO);
+    NewDayDTO saveNewDay(NewDayDTO dayDTO);
 
 }
 
