@@ -27,7 +27,7 @@ public class MapperServiceImplementation implements MapperService {
 
     @Override
     public NewDayDTO convertDayToNewDayDTO(Day day) {
-        return modelMapper.map(day,NewDayDTO.class);
+        return modelMapper.map(day, NewDayDTO.class);
     }
 
     @Override

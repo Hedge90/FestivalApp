@@ -14,13 +14,13 @@ public class OrganizerServiceImpl implements OrganizerService {
     private MapperService mapperService;
 
     @Autowired
-    public OrganizerServiceImpl(OrganizerRepository organizerRepository,MapperService mapperService){
+    public OrganizerServiceImpl(OrganizerRepository organizerRepository, MapperService mapperService){
         this.organizerRepository = organizerRepository;
         this.mapperService = mapperService;
     }
 
     @Override
     public NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO) {
-        return mapperService.convertOrganizerToNewOrganizerResponseDTO(organizerRepository.save(new Organizer(organizerDTO.getName(),organizerDTO.getEmail(),organizerDTO.getPassword())));
+        return mapperService.convertOrganizerToNewOrganizerResponseDTO(organizerRepository.save(new Organizer(organizerDTO.getName(), organizerDTO.getEmail(), organizerDTO.getPassword())));
     }
 }

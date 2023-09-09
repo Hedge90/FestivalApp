@@ -6,3 +6,4 @@ public interface DayService {
     NewDayDTO saveNewDay(NewDayDTO dayDTO);
 
 }
+

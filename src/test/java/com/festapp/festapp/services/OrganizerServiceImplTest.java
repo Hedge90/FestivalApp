@@ -41,13 +41,13 @@ public class OrganizerServiceImplTest {
         organizerDTO.setEmail(orgEmail);
         organizerDTO.setPassword(password);
 
-        Organizer expectedOrganizer = new Organizer(orgName,orgEmail,password);
+        Organizer expectedOrganizer = new Organizer(orgName, orgEmail, password);
         expectedOrganizer.setId(1L);
 
         Mockito.when(organizerRepository.save(Mockito.any(Organizer.class))).thenReturn(expectedOrganizer);
         NewOrganizerResponseDTO organizer = organizerService.saveNewOrganizer(organizerDTO);
         assertNotNull(organizer);
-        assertEquals(expectedOrganizer.getId(),organizer.getId());
+        assertEquals(expectedOrganizer.getId(), organizer.getId());
         assertEquals(orgName, organizer.getName());
         assertEquals(orgEmail, organizer.getEmail());
     }

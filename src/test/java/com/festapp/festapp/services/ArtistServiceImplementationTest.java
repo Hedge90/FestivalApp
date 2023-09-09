@@ -2,6 +2,7 @@ package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.entities.Artist;
+import com.festapp.festapp.exceptions.ArtistNotFoundException;
 import com.festapp.festapp.repositories.ArtistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,5 +41,14 @@ class ArtistServiceImplementationTest {
 
         Assertions.assertEquals("Kozso", storedArtist.getName());
         Assertions.assertEquals(date, storedArtist.getDate());
+    }
+
+    @Test
+    void getArtistByName_withInputNotMatchingExistingArtist_throwsArtistNotFoundException() {
+        Mockito.when(artistRepository.findArtistByName("Cujo")).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(ArtistNotFoundException.class, () -> {
+            artistService.getArtistByName("Cujo");
+        });
     }
 }

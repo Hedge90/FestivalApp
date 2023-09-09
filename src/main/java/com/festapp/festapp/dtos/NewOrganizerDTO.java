@@ -1,7 +1,6 @@
 package com.festapp.festapp.dtos;
 
 public class NewOrganizerDTO {
-    private Long id;
     private String name;
     private String email;
     private String password;

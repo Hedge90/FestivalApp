@@ -23,6 +23,6 @@ public class OrganizerController {
 
     @PostMapping(path = "/organizer")
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO){
-        return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO),HttpStatus.OK);
+        return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
     }
 }
