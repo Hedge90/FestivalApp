@@ -15,6 +15,7 @@ public class ArtistServiceImplementation implements ArtistService {
     private ArtistRepository artistRepository;
 
     private MapperService mapperService;
+
     @Autowired
     public ArtistServiceImplementation(ArtistRepository artistRepository, MapperService mapperService) {
         this.artistRepository = artistRepository;
