@@ -10,7 +10,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExc
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ExceptionHandlerExceptionResolver {
     @ExceptionHandler(value = ArtistNotFoundException.class)
-    public ResponseEntity<Object> handleUserNotFoundException(ArtistNotFoundException exception) {
+    public ResponseEntity<Object> handleArtistNotFoundException(ArtistNotFoundException exception) {
         return new ResponseEntity<>(new ErrorDTO("error", exception.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = InvalidDayNameException.class)
+    public ResponseEntity<Object> handleUInvalidDayNameException(InvalidDayNameException exception) {
+        return new ResponseEntity<>(new ErrorDTO("error", exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
