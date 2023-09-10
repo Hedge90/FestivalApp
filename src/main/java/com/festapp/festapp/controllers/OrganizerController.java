@@ -25,4 +25,8 @@ public class OrganizerController {
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO){
         return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
     }
+
+    @PostMapping (path = "/organizer/login")
+    public ResponseEntity<?> loginOrganizer(RequestBody AuthenticationRequestDTO authenticationRequestDTO){
+    }
 }
