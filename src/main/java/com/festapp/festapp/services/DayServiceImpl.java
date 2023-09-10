@@ -20,25 +20,19 @@ public class DayServiceImpl implements DayService {
     }
 
     @Override
-    public Day saveNewDay(NewDayDTO dayDTO) {
-        DayName dayName = null;
-        if (dayDTO.getName().toLowerCase().equals("monday")) {
-            dayName = DayName.MONDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("tuesday")) {
-            dayName = DayName.TUESDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("wednesday")) {
-            dayName = DayName.WEDNESDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("thursday")) {
-            dayName = DayName.THURSDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("friday")) {
-            dayName = DayName.FRIDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("saturday")) {
-            dayName = DayName.SATURDAY;
-        } else if (dayDTO.getName().toLowerCase().equals("sunday")) {
-            dayName = DayName.SUNDAY;
-        } else {
-            throw new InvalidDayNameException();
-        }
-        return dayRepository.save(new Day(dayDTO.getDate(),dayName));
+    public NewDayDTO saveNewDay(NewDayDTO dayDTO) {
+        return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(),validateDayName(dayDTO))));
     }
-}
+
+    @Override
+    public DayName validateDayName(NewDayDTO dayDTO) {
+        DayName dayName;
+            try {
+                dayName = DayName.valueOf(dayDTO.getName().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new InvalidDayNameException();
+            }
+            return dayName;
+        }
+    }
+
