@@ -39,6 +39,6 @@ public class DayServiceImplTest {
         NewDayDTO savedDay = dayService.saveNewDay(dayDTO);
         assertNotNull(savedDay);
         assertEquals(date, savedDay.getDate());
-        assertEquals(DayName.FRIDAY, savedDay.getName());
+        assertEquals("FRIDAY", savedDay.getName());
     }
 }

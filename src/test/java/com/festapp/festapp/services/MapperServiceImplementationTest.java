@@ -4,6 +4,7 @@ import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.dtos.NewDayDTO;
 import com.festapp.festapp.entities.Artist;
 import com.festapp.festapp.entities.Day;
+import com.festapp.festapp.enums.DayName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +34,20 @@ class MapperServiceImplementationTest {
 
     @Test
     void convertDayToNewDayDTO_withProperDay_returnsCorrectDayDTO() {
-        Day day = new Day(LocalDate.of(2023,9,8),"Friday");
+        Day day = new Day(LocalDate.of(2023,9,8), DayName.FRIDAY);
         NewDayDTO dayDTO = mapperServiceImplementation.convertDayToNewDayDTO(day);
 
         Assertions.assertEquals(LocalDate.of(2023,9,8),dayDTO.getDate());
-        Assertions.assertEquals("Friday", dayDTO.getName());
+        Assertions.assertEquals("FRIDAY", dayDTO.getName());
     }
 
     @Test
     void convertOrganizerToNewOrganizerResponseDTO_withProperOrganizer_returnsCorrectOrganizerDTO() {
-        Day day = new Day(LocalDate.of(2023,9,8),"Friday");
+        Day day = new Day(LocalDate.of(2023,9,8),DayName.FRIDAY);
         NewDayDTO dayDTO = mapperServiceImplementation.convertDayToNewDayDTO(day);
 
         Assertions.assertEquals(LocalDate.of(2023,9,8),dayDTO.getDate());
-        Assertions.assertEquals("Friday", dayDTO.getName());
+        Assertions.assertEquals("FRIDAY", dayDTO.getName());
     }
 
 
