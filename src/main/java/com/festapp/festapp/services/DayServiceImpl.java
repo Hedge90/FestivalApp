@@ -24,8 +24,7 @@ public class DayServiceImpl implements DayService {
         return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(),validateDayName(dayDTO))));
     }
 
-    @Override
-    public DayName validateDayName(NewDayDTO dayDTO) {
+    private DayName validateDayName(NewDayDTO dayDTO) {
         DayName dayName;
             try {
                 dayName = DayName.valueOf(dayDTO.getName().toUpperCase());
