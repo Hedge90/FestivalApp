@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableMethodSecurity
@@ -37,7 +38,10 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/artist/{name}","/api/organizer","/api/organizer/login").permitAll()
+                    auth.requestMatchers(new AntPathRequestMatcher("/artist/{name}")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/api/organizer")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/api/organizer/login"))
+                            .permitAll()
                             .anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

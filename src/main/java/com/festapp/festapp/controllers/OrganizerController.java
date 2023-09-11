@@ -1,7 +1,9 @@
 package com.festapp.festapp.controllers;
 
+import com.festapp.festapp.dtos.AuthenticationRequestDTO;
+
+import com.festapp.festapp.dtos.AuthenticationResponseDTO;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
-import com.festapp.festapp.entities.Organizer;
 import com.festapp.festapp.services.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,8 @@ public class OrganizerController {
         return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
     }
 
-//    @PostMapping (path = "/organizer/login")
-//    public ResponseEntity<?> loginOrganizer(RequestBody AuthenticationRequestDTO authenticationRequestDTO){
-//    }
+    @PostMapping (path = "/organizer/login")
+    public ResponseEntity<?> loginOrganizer(@RequestBody AuthenticationRequestDTO authenticationRequestDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponseDTO("ok", organizerService.createJwtToken(authenticationRequestDTO.getEmail())));
+    }
 }
