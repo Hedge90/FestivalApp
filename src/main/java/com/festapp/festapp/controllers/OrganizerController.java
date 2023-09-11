@@ -1,7 +1,6 @@
 package com.festapp.festapp.controllers;
 
 import com.festapp.festapp.dtos.NewOrganizerDTO;
-import com.festapp.festapp.entities.Organizer;
 import com.festapp.festapp.services.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +16,12 @@ public class OrganizerController {
     private final OrganizerService organizerService;
 
     @Autowired
-    public OrganizerController(OrganizerService organizerService){
+    public OrganizerController(OrganizerService organizerService) {
         this.organizerService = organizerService;
     }
 
     @PostMapping(path = "/organizer")
-    public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO){
+    public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
         return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
     }
 }

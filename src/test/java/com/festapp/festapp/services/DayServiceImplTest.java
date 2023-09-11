@@ -20,7 +20,7 @@ public class DayServiceImplTest {
     DayRepository dayRepository;
 
     @Autowired
-    DayServiceImplTest(DayServiceImpl dayService){
+    DayServiceImplTest(DayServiceImpl dayService) {
         this.dayService = dayService;
         dayRepository = Mockito.mock(DayRepository.class);
     }

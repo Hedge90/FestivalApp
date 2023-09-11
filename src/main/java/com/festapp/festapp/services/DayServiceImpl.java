@@ -13,6 +13,7 @@ public class DayServiceImpl implements DayService {
 
     private DayRepository dayRepository;
     private MapperService mapperService;
+
     @Autowired
     public DayServiceImpl(DayRepository dayRepository, MapperService mapperService) {
         this.dayRepository = dayRepository;
@@ -21,18 +22,17 @@ public class DayServiceImpl implements DayService {
 
     @Override
     public NewDayDTO saveNewDay(NewDayDTO dayDTO) {
-        return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(),validateDayName(dayDTO))));
+        return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(), validateDayName(dayDTO))));
     }
 
-    @Override
-    public DayName validateDayName(NewDayDTO dayDTO) {
+    private DayName validateDayName(NewDayDTO dayDTO) {
         DayName dayName;
-            try {
-                dayName = DayName.valueOf(dayDTO.getName().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                throw new InvalidDayNameException();
-            }
-            return dayName;
+        try {
+            dayName = DayName.valueOf(dayDTO.getName().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidDayNameException();
         }
+        return dayName;
     }
+}
 

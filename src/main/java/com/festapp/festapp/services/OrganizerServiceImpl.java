@@ -4,7 +4,6 @@ import com.festapp.festapp.dtos.NewOrganizerDTO;
 import com.festapp.festapp.dtos.NewOrganizerResponseDTO;
 import com.festapp.festapp.entities.Organizer;
 import com.festapp.festapp.repositories.OrganizerRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ public class OrganizerServiceImpl implements OrganizerService {
     private MapperService mapperService;
 
     @Autowired
-    public OrganizerServiceImpl(OrganizerRepository organizerRepository, MapperService mapperService){
+    public OrganizerServiceImpl(OrganizerRepository organizerRepository, MapperService mapperService) {
         this.organizerRepository = organizerRepository;
         this.mapperService = mapperService;
     }
