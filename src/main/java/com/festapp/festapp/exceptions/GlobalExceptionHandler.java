@@ -15,7 +15,7 @@ public class GlobalExceptionHandler extends ExceptionHandlerExceptionResolver {
     }
 
     @ExceptionHandler(value = InvalidDayNameException.class)
-    public ResponseEntity<Object> handleUInvalidDayNameException(InvalidDayNameException exception) {
+    public ResponseEntity<Object> handleInvalidDayNameException(InvalidDayNameException exception) {
         return new ResponseEntity<>(new ErrorDTO("error", exception.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

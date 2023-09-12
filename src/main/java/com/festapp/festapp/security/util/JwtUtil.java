@@ -47,10 +47,12 @@ public class JwtUtil {
     public String generateToken(MyUserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userDetails.getId());
-        return createToken(claims, userDetails.getUsername());
+        claims.put("userEmail",userDetails.getUsername());
+        claims.put("userName", userDetails.getName());
+        return createToken(claims);
     }
 
-    public String createToken(Map<String, Object> claims, String subject) {
+    public String createToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .signWith(SignatureAlgorithm.HS256, env.getProperty("SECRET_KEY"))

@@ -7,7 +7,7 @@ import com.festapp.festapp.repositories.OrganizerRepository;
 import com.festapp.festapp.security.MyUserDetails;
 import com.festapp.festapp.security.MyUserDetailsService;
 import com.festapp.festapp.security.util.JwtUtil;
-import org.aspectj.weaver.ast.Or;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +20,7 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Autowired
     public OrganizerServiceImpl(OrganizerRepository organizerRepository, MapperService mapperService,MyUserDetailsService myUserDetailsService, JwtUtil jwtUtil){
+
         this.organizerRepository = organizerRepository;
         this.mapperService = mapperService;
         this.myUserDetailsService = myUserDetailsService;

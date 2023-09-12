@@ -19,12 +19,12 @@ public class OrganizerController {
     private final OrganizerService organizerService;
 
     @Autowired
-    public OrganizerController(OrganizerService organizerService){
+    public OrganizerController(OrganizerService organizerService) {
         this.organizerService = organizerService;
     }
 
     @PostMapping(path = "/organizer")
-    public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO){
+    public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
         return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
     }
 

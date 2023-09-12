@@ -16,12 +16,12 @@ public class DayController {
     private DayService dayService;
 
     @Autowired
-    public DayController(DayService dayService){
+    public DayController(DayService dayService) {
         this.dayService = dayService;
     }
 
     @PostMapping("/days")
-    public ResponseEntity<?> addNewDay(@RequestBody NewDayDTO dayDTO){
+    public ResponseEntity<?> addNewDay(@RequestBody NewDayDTO dayDTO) {
         return new ResponseEntity<>(dayService.saveNewDay(dayDTO), HttpStatus.OK);
     }
 

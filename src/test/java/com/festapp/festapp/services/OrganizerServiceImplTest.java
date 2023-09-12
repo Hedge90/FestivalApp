@@ -16,21 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 
 public class OrganizerServiceImplTest {
-   private OrganizerServiceImpl organizerService;
-   private OrganizerRepository organizerRepository;
+    private OrganizerServiceImpl organizerService;
+    private OrganizerRepository organizerRepository;
 
-   @Autowired
-    OrganizerServiceImplTest(OrganizerServiceImpl organizerService){
-       this.organizerService = organizerService;
-       organizerRepository = Mockito.mock(OrganizerRepository.class);
-   }
+    @Autowired
+    OrganizerServiceImplTest(OrganizerServiceImpl organizerService) {
+        this.organizerService = organizerService;
+        organizerRepository = Mockito.mock(OrganizerRepository.class);
+    }
 
     @BeforeEach
     public void clearDatabase() {
         organizerRepository.deleteAll();
     }
 
-   @Test
+    @Test
     public void saveNewOrganizer_withProperNewOrganizerDTO_ReturnsSavedOrganizer() {
         String orgName = "Gerendai Károly";
         String orgEmail = "gerendaikarcsi@citrom.hu";

@@ -1,4 +1,4 @@
-package com.festapp.festapp.security.util;
+package com.festapp.festapp.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;

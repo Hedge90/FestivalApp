@@ -1,6 +1,5 @@
 package com.festapp.festapp.controllers;
 
-import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.services.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

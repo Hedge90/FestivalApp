@@ -12,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class MapperServiceImplementationTest {
 
@@ -34,7 +32,7 @@ class MapperServiceImplementationTest {
 
     @Test
     void convertDayToNewDayDTO_withProperDay_returnsCorrectDayDTO() {
-        Day day = new Day(LocalDate.of(2023,9,8), DayName.FRIDAY);
+        Day day = new Day(LocalDate.of(2023,9,8),DayName.FRIDAY);
         NewDayDTO dayDTO = mapperServiceImplementation.convertDayToNewDayDTO(day);
 
         Assertions.assertEquals(LocalDate.of(2023,9,8),dayDTO.getDate());
@@ -43,7 +41,7 @@ class MapperServiceImplementationTest {
 
     @Test
     void convertOrganizerToNewOrganizerResponseDTO_withProperOrganizer_returnsCorrectOrganizerDTO() {
-        Day day = new Day(LocalDate.of(2023,9,8),DayName.FRIDAY);
+        Day day = new Day(LocalDate.of(2023,9,8), DayName.FRIDAY);
         NewDayDTO dayDTO = mapperServiceImplementation.convertDayToNewDayDTO(day);
 
         Assertions.assertEquals(LocalDate.of(2023,9,8),dayDTO.getDate());

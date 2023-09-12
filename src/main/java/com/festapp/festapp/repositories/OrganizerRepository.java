@@ -1,6 +1,5 @@
 package com.festapp.festapp.repositories;
 
-import com.festapp.festapp.entities.Day;
 import com.festapp.festapp.entities.Organizer;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -12,6 +12,7 @@ import java.util.List;
 public class MyUserDetails implements UserDetails {
     private final Long id;
     private final String email;
+    private final String name;
     private final String password;
     private final List<GrantedAuthority> grantedAuthorityList;
 
@@ -21,6 +22,7 @@ public class MyUserDetails implements UserDetails {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.grantedAuthorityList = new ArrayList<>();
+        this.name = user.getName();
     }
 
     public Long getId() {
@@ -40,6 +42,10 @@ public class MyUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getName(){
+        return name;
     }
 
     @Override

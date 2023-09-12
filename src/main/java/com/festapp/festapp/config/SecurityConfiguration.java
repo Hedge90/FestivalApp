@@ -2,7 +2,7 @@ package com.festapp.festapp.config;
 
 import com.festapp.festapp.security.CustomAccessDeniedHandler;
 import com.festapp.festapp.security.filter.JwtRequestFilter;
-import com.festapp.festapp.security.util.CustomAuthenticationEntryPoint;
+import com.festapp.festapp.security.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
