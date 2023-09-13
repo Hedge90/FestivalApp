@@ -2,7 +2,6 @@ package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.AuthenticationRequestDTO;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validator;
 
 import java.util.List;
 

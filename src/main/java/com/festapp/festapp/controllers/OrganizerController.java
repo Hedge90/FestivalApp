@@ -3,15 +3,17 @@ package com.festapp.festapp.controllers;
 import com.festapp.festapp.dtos.AuthenticationRequestDTO;
 
 import com.festapp.festapp.dtos.AuthenticationResponseDTO;
+import com.festapp.festapp.dtos.ErrorDTO;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
 import com.festapp.festapp.services.OrganizerService;
 import com.festapp.festapp.services.ValidationService;
-import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,7 +44,7 @@ public class OrganizerController {
             return ResponseEntity.badRequest().body(validationService.getMessageTemplate(e));
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body("Email already exists!");
+            return ResponseEntity.badRequest().body(new ErrorDTO("Bad request","Email already exists!"));
         }
     }
 
@@ -54,8 +56,8 @@ public class OrganizerController {
         }
         try {
             return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponseDTO("ok", organizerService.createJwtToken(authenticationRequestDTO.getEmail())));
-        } catch (UsernameNotFoundException e) {
-            return ResponseEntity.badRequest().body("Email or Password is invalid!");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.badRequest().body(new ErrorDTO("Bad Request","Email or password is invalid"));
         }
     }
 }

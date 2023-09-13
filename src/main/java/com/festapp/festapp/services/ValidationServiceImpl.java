@@ -32,13 +32,11 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public List<String> getValidationErrors(AuthenticationRequestDTO authenticationRequestDTO) {
-        Set<ConstraintViolation<AuthenticationRequestDTO>> violations = validator.validate(authenticationRequestDTO);
+        Set<ConstraintViolation<AuthenticationRequestDTO>> violations = validator.validate((AuthenticationRequestDTO) authenticationRequestDTO);
         List<String> validationErrors = new ArrayList<>();
-
         for (ConstraintViolation<AuthenticationRequestDTO> violation : violations) {
             validationErrors.add(violation.getMessage());
         }
-
         return validationErrors;
     }
 }
