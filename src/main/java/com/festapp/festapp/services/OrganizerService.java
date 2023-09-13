@@ -5,4 +5,5 @@ import com.festapp.festapp.dtos.NewOrganizerResponseDTO;
 
 public interface OrganizerService {
     NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO);
+    String createJwtToken(String email);
 }
