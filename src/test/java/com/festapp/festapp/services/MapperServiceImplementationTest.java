@@ -82,6 +82,4 @@ class MapperServiceImplementationTest {
         Assertions.assertEquals(LocalDate.of(2023,9,8),dayDTO.getDate());
         Assertions.assertEquals("FRIDAY", dayDTO.getName());
     }
-
-
 }
