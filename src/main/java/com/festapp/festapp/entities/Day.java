@@ -68,4 +68,8 @@ public class Day {
     public void setName(DayName name) {
         this.name = name;
     }
+
+    public void addArtist(Artist artist) {
+        artists.add(artist);
+    }
 }

@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api")
 @Validated
+@RequestMapping(path = "/api/organizers")
 public class OrganizerController {
     private final OrganizerService organizerService;
     private final ValidationService validationService;
@@ -37,7 +37,8 @@ public class OrganizerController {
         this.validationService = validationService;
     }
 
-    @PostMapping("/organizer")
+
+    @PostMapping("/register")
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
         try {
             return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
@@ -49,7 +50,7 @@ public class OrganizerController {
         }
     }
 
-    @PostMapping(path = "/organizer/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<?> loginOrganizer(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
         List<String> validationErrors = validationService.getValidationErrors(authenticationRequestDTO);
         if (!validationErrors.isEmpty()) {
