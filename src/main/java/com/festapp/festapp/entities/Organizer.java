@@ -1,7 +1,7 @@
 package com.festapp.festapp.entities;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table (name = "organizers")
@@ -9,9 +9,14 @@ public class Organizer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "Name must be included")
+    @NotNull(message = "Name must be included")
     private String name;
     @Column(unique = true)
+    @Email(message = "Valid Email is required!")
     private  String email;
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[^a-zA-Z]).{6,}$", message = "Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character")
     private String password;
 
     public Organizer() {

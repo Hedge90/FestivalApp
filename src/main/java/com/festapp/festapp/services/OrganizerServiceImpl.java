@@ -3,11 +3,13 @@ package com.festapp.festapp.services;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
 import com.festapp.festapp.dtos.NewOrganizerResponseDTO;
 import com.festapp.festapp.entities.Organizer;
+import com.festapp.festapp.exceptions.ValidationException;
 import com.festapp.festapp.repositories.OrganizerRepository;
 import com.festapp.festapp.security.MyUserDetails;
 import com.festapp.festapp.security.MyUserDetailsService;
 import com.festapp.festapp.security.util.JwtUtil;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,8 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Override
     public NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO) {
-        return mapperService.convertOrganizerToNewOrganizerResponseDTO(organizerRepository.save(new Organizer(organizerDTO.getName(), organizerDTO.getEmail(), organizerDTO.getPassword())));
+            Organizer organizer = organizerRepository.save(new Organizer(organizerDTO.getName(), organizerDTO.getEmail(), organizerDTO.getPassword()));
+            return mapperService.convertOrganizerToNewOrganizerResponseDTO(organizer);
     }
 
     @Override
