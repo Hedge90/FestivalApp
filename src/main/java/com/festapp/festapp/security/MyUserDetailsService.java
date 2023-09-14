@@ -14,7 +14,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private final OrganizerRepository userRepository;
 
     @Autowired
-    public MyUserDetailsService(OrganizerRepository userRepository){
+    public MyUserDetailsService(OrganizerRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -25,7 +25,7 @@ public class MyUserDetailsService implements UserDetailsService {
         return user.map(MyUserDetails::new).get();
     }
 
-    public MyUserDetails loadById(Long id) throws Exception{
+    public MyUserDetails loadById(Long id) throws Exception {
         Optional<Organizer> user = userRepository.findById(id);
         user.orElseThrow(() -> new Exception("Not found: " + id));
         return user.map(MyUserDetails::new).get();

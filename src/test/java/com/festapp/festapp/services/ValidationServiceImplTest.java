@@ -1,19 +1,14 @@
 package com.festapp.festapp.services;
 
-import com.festapp.festapp.dtos.AuthenticationRequestDTO;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
+import com.festapp.festapp.dtos.NewOrganizerDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ValidationServiceImplTest {
@@ -26,47 +21,30 @@ public class ValidationServiceImplTest {
     }
 
     @Test
-    public void getMessageTemplate_WhenViolationsExist_ReturnsTheAppropriateViolations() {
-        ConstraintViolation<?> violation1 = createMockViolation("Violation 1");
-        ConstraintViolation<?> violation2 = createMockViolation("Violation 2");
+    public void getValidationErrors_WhenValidDTO_ReturnsEmptyList() {
 
-        Set<ConstraintViolation<?>> violations =Set.of(violation1, violation2);
-        ConstraintViolationException exception = new ConstraintViolationException("Validation failed", violations);
+        NewOrganizerDTO validDTO = new NewOrganizerDTO();
+        validDTO.setName("Franz Ferdinand");
+        validDTO.setEmail("archdude@kaiser.com");
+        validDTO.setPassword("Monarchy48");
 
-        List<String> errorMessageTemplates = validationService.getMessageTemplate(exception);
-        assertTrue(errorMessageTemplates.contains("Violation 1"));
-        assertTrue(errorMessageTemplates.contains("Violation 2"));
-        assertEquals(2, errorMessageTemplates.size());
+        List<String> validationErrors = validationService.getValidationErrors(validDTO);
 
-    }
-
-    @Test
-    public void getValidationErrors_WhenValidAuthenticationRequestDTO_ReturnsEmptyList() {
-        AuthenticationRequestDTO validRequest = new AuthenticationRequestDTO();
-        validRequest.setEmail("leo@kristof.citrom");
-        validRequest.setPassword("Egyketha1");
-
-        List<String> validationErrors = validationService.getValidationErrors(validRequest);
         assertEquals(0, validationErrors.size());
     }
 
     @Test
-    public void getValidationErrors_WhenInvalidAuthenticationRequestDTO_ReturnsValidationErrors() {
-        AuthenticationRequestDTO invalidRequest = new AuthenticationRequestDTO();
-        invalidRequest.setPassword("roszjelszo");
+    public void getValidationErrors_WhenInvalidDTO_ReturnsValidationErrors() {
+        NewOrganizerDTO invalidDTO = new NewOrganizerDTO();
 
-        List<String> validationErrors = validationService.getValidationErrors(invalidRequest);
+        invalidDTO.setName("");
+        invalidDTO.setEmail("archdudekaiser.com");
+        invalidDTO.setPassword("kossuth");
+        List<String> validationErrors = validationService.getValidationErrors(invalidDTO);
 
-        assertEquals(1, validationErrors.size());
-        assertEquals("Email or password is invalid", validationErrors.get(0));
+        assertTrue(validationErrors.size() > 0);
+        assertTrue(validationErrors.contains("Name must be included"));
+        assertTrue(validationErrors.contains("Valid Email is required!"));
+        assertTrue(validationErrors.contains("Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character"));
     }
-
-    private ConstraintViolation<?> createMockViolation(String messageTemplate) {
-        ConstraintViolation<?> violation = mock(ConstraintViolation.class);
-        when(violation.getMessageTemplate()).thenReturn(messageTemplate);
-        return violation;
-    }
-
-
-
 }

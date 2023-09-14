@@ -1,16 +1,18 @@
 package com.festapp.festapp.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.Length;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
 
 public class NewOrganizerDTO {
+    @NotEmpty(message = "Name must be included")
+    @NotNull(message = "Name must be included")
     private String name;
 
+    @Column(unique = true)
+    @Email(message = "Valid Email is required!")
     private String email;
 
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[^a-zA-Z]).{6,}$", message = "Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character")
     private String password;
 
     public NewOrganizerDTO() {

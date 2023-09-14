@@ -5,12 +5,12 @@ import com.festapp.festapp.dtos.AuthenticationRequestDTO;
 import com.festapp.festapp.dtos.AuthenticationResponseDTO;
 import com.festapp.festapp.dtos.ErrorDTO;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
+import com.festapp.festapp.exceptions.EmailAlreadyExistsException;
+import com.festapp.festapp.exceptions.InvalidPasswordException;
 import com.festapp.festapp.services.OrganizerService;
 import com.festapp.festapp.services.ValidationService;
-import jakarta.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+
 @RequestMapping(path = "/api")
 @Validated
 public class OrganizerController {
@@ -38,13 +39,14 @@ public class OrganizerController {
 
     @PostMapping("/organizer")
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
+        List<String> validationErrors = validationService.getValidationErrors(organizerDTO);
+        if (!validationErrors.isEmpty()) {
+            return ResponseEntity.badRequest().body(validationErrors);
+        }
         try {
             return new ResponseEntity<>(organizerService.saveNewOrganizer(organizerDTO), HttpStatus.OK);
-        } catch (ConstraintViolationException e) {
-            return ResponseEntity.badRequest().body(validationService.getMessageTemplate(e));
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().body(new ErrorDTO("Bad request","Email already exists!"));
+        } catch (EmailAlreadyExistsException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -55,9 +57,11 @@ public class OrganizerController {
             return ResponseEntity.badRequest().body(validationErrors);
         }
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponseDTO("ok", organizerService.createJwtToken(authenticationRequestDTO.getEmail())));
+            return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponseDTO("ok", organizerService.createJwtToken(authenticationRequestDTO)));
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().body(new ErrorDTO("Bad Request","Email or password is invalid"));
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }
