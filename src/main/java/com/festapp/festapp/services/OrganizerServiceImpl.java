@@ -3,6 +3,7 @@ package com.festapp.festapp.services;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
 import com.festapp.festapp.dtos.NewOrganizerResponseDTO;
 import com.festapp.festapp.entities.Organizer;
+import com.festapp.festapp.exceptions.EmailAlreadyExistsException;
 import com.festapp.festapp.repositories.OrganizerRepository;
 import com.festapp.festapp.security.MyUserDetails;
 import com.festapp.festapp.security.MyUserDetailsService;
@@ -11,6 +12,8 @@ import com.festapp.festapp.security.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class OrganizerServiceImpl implements OrganizerService {
@@ -32,13 +35,21 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Override
     public NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO) {
+        if (doesEmailExists(organizerDTO.getEmail())){
+            throw new EmailAlreadyExistsException();
+        } else {
             Organizer organizer = organizerRepository.save(new Organizer(organizerDTO.getName(), organizerDTO.getEmail(), passwordEncoder.encode(organizerDTO.getPassword())));
             return mapperService.convertOrganizerToNewOrganizerResponseDTO(organizer);
+        }
     }
 
     @Override
     public String createJwtToken(String email) {
         MyUserDetails userDetails = myUserDetailsService.loadUserByUsername(email);
         return jwtUtil.generateToken(userDetails);
+    }
+
+    private boolean doesEmailExists(String email){
+      return organizerRepository.findByEmail(email).isPresent();
     }
 }

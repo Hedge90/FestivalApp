@@ -5,6 +5,7 @@ import com.festapp.festapp.dtos.AuthenticationRequestDTO;
 import com.festapp.festapp.dtos.AuthenticationResponseDTO;
 import com.festapp.festapp.dtos.ErrorDTO;
 import com.festapp.festapp.dtos.NewOrganizerDTO;
+import com.festapp.festapp.exceptions.EmailAlreadyExistsException;
 import com.festapp.festapp.services.OrganizerService;
 import com.festapp.festapp.services.ValidationService;
 import jakarta.validation.ConstraintViolationException;
@@ -43,8 +44,8 @@ public class OrganizerController {
         } catch (ConstraintViolationException e) {
             return ResponseEntity.badRequest().body(validationService.getMessageTemplate(e));
         }
-        catch (Exception e){
-            return ResponseEntity.badRequest().body(new ErrorDTO("Bad request","Email already exists!"));
+        catch (EmailAlreadyExistsException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
