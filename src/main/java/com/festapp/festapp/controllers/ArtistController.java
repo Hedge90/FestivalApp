@@ -1,16 +1,14 @@
 package com.festapp.festapp.controllers;
 
+import com.festapp.festapp.dtos.ArtistDTO;
 import com.festapp.festapp.services.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/artist")
+@RequestMapping(path = "/api/artists")
 public class ArtistController {
 
     private ArtistService artistService;
@@ -21,7 +19,7 @@ public class ArtistController {
     }
 
     @GetMapping(path = "/{name}")
-    public ResponseEntity<?> getArtist(@PathVariable String name) {
+    public ResponseEntity<ArtistDTO> getArtist(@PathVariable String name) {
         return new ResponseEntity<>(artistService.getArtistByName(name), HttpStatus.OK);
     }
 }
