@@ -10,4 +10,5 @@ public interface OrganizerService {
     NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO) throws ConstraintViolationException;
 
     String createJwtToken(AuthenticationRequestDTO authenticationRequestDTO);
+
 }

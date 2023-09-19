@@ -1,20 +1,18 @@
 package com.festapp.festapp.dtos;
 
-import com.festapp.festapp.entities.Day;
-
 import java.time.LocalDateTime;
 
-public class ArtistDTO {
+public class NewArtistDTO {
 
     private String name;
 
     private LocalDateTime date;
 
-    private Day day;
+    private String day;
 
-    public ArtistDTO() {}
+    public NewArtistDTO() {}
 
-    public ArtistDTO(String name, LocalDateTime date, Day day) {
+    public NewArtistDTO(String name, LocalDateTime date, String day) {
         this.name = name;
         this.date = date;
         this.day = day;
@@ -36,11 +34,11 @@ public class ArtistDTO {
         this.date = date;
     }
 
-    public Day getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(Day day) {
+    public void setDay(String day) {
         this.day = day;
     }
 }

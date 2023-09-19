@@ -38,9 +38,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .formLogin(formLogin -> formLogin.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(new AntPathRequestMatcher("/artist/{name}")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/api/organizer")).permitAll()
-                            .requestMatchers(new AntPathRequestMatcher("/api/organizer/login"))
+                    auth.requestMatchers(new AntPathRequestMatcher("/artists/{name}")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/api/organizers/register")).permitAll()
+                            .requestMatchers(new AntPathRequestMatcher("/api/organizers/login"))
                             .permitAll()
                             .anyRequest().authenticated();
                 })

@@ -22,8 +22,11 @@ public class Artist {
 
     public Artist() {}
 
-    public Artist(String name) {
+    public Artist(String name, LocalDateTime date, Day day) {
         this.name = name;
+        this.date = date;
+        this.day = day;
+        day.addArtist(this);
     }
 
     public String getName() {

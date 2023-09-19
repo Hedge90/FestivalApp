@@ -24,9 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-
-@RequestMapping(path = "/api")
 @Validated
+@RequestMapping(path = "/api/organizers")
 public class OrganizerController {
     private final OrganizerService organizerService;
     private final ValidationService validationService;
@@ -37,7 +36,8 @@ public class OrganizerController {
         this.validationService = validationService;
     }
 
-    @PostMapping("/organizer")
+
+    @PostMapping("/register")
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
         List<String> validationErrors = validationService.getValidationErrors(organizerDTO);
         if (!validationErrors.isEmpty()) {
@@ -50,11 +50,11 @@ public class OrganizerController {
         }
     }
 
-    @PostMapping(path = "/organizer/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<?> loginOrganizer(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
         List<String> validationErrors = validationService.getValidationErrors(authenticationRequestDTO);
         if (!validationErrors.isEmpty()) {
-            return ResponseEntity.badRequest().body(validationErrors);
+            return ResponseEntity.badRequest().body(validationErrors.get(0));
         }
         try {
             return ResponseEntity.status(HttpStatus.OK).body(new AuthenticationResponseDTO("ok", organizerService.createJwtToken(authenticationRequestDTO)));

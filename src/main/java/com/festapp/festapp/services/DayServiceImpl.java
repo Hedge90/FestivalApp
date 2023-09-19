@@ -6,6 +6,7 @@ import com.festapp.festapp.enums.DayName;
 import com.festapp.festapp.exceptions.DayAlreadyExistsException;
 import com.festapp.festapp.exceptions.InvalidDayNameException;
 import com.festapp.festapp.repositories.DayRepository;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class DayServiceImpl implements DayService {
     public NewDayDTO saveNewDay(NewDayDTO dayDTO) {
         try {
             return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(), validateDayName(dayDTO))));
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e){
             throw new InvalidDayNameException();
-        } catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e){
             throw new DayAlreadyExistsException();
         }
     }
@@ -42,5 +43,6 @@ public class DayServiceImpl implements DayService {
         }
         return dayName;
     }
+
 }
 
