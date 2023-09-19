@@ -3,7 +3,6 @@ package com.festapp.festapp.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.festapp.festapp.enums.DayName;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;

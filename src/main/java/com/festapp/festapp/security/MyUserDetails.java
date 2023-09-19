@@ -44,7 +44,7 @@ public class MyUserDetails implements UserDetails {
         return email;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
