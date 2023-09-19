@@ -1,7 +1,10 @@
 package com.festapp.festapp.controllers;
 
 import com.festapp.festapp.dtos.NewDayDTO;
+import com.festapp.festapp.exceptions.DayAlreadyExistsException;
 import com.festapp.festapp.services.DayService;
+import com.festapp.festapp.services.ValidationService;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +25,10 @@ public class DayController {
 
     @PostMapping("/days")
     public ResponseEntity<?> addNewDay(@RequestBody NewDayDTO dayDTO) {
-        return new ResponseEntity<>(dayService.saveNewDay(dayDTO), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(dayService.saveNewDay(dayDTO), HttpStatus.OK);
+        }catch (DayAlreadyExistsException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-
-
 }

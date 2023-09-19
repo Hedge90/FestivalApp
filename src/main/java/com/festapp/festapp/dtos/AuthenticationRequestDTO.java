@@ -1,7 +1,12 @@
 package com.festapp.festapp.dtos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+
 public class AuthenticationRequestDTO {
+    @Email(message = "Email or password is invalid")
     private String email;
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[^a-zA-Z]).{6,}$", message = "Email or password is invalid")
     private String password;
 
     public AuthenticationRequestDTO() {

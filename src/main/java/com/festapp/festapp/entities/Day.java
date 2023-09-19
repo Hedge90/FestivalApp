@@ -3,6 +3,8 @@ package com.festapp.festapp.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.festapp.festapp.enums.DayName;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,8 +19,12 @@ public class Day {
     @OneToMany(mappedBy = "day", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JsonBackReference
     private List<Artist> artists = new ArrayList<>();
+    @NotNull(message = "Date must be included!")
+    @Column(unique = true)
     private LocalDate date;
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Name must be included")
+    @Column(unique = true)
     private DayName name;
 
 
