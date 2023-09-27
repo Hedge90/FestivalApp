@@ -1,4 +1,3 @@
-
 INSERT INTO days (id, date, name)
 VALUES (1, '2024-07-01','FRIDAY'),
        (2, '2024-07-02', 'SATURDAY');
