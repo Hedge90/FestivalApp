@@ -7,7 +7,7 @@ VALUES (1, 'Bob Marley','2024-07-01','Regi',1),
        (2, 'Edda', '2024-07-02', 'urleny',2);
 
 INSERT INTO organizers (id, email, name, password)
-VALUES (1,'leo@gmail.hu','Leo','$2a$10$O7IEvhwRfIRE6dvB8FHH4.vvKpKDhLasn6a20ekzg0dbS.j3iu/tq'),
-       (2, 'kristof@gmail.hu', 'Kristof','$2a$10$SaPeFYZJS8QzSye/ySdf2uRIoFVwagRckQv2PeMnnC7xvmrH3x0Ym');
+VALUES (1,'leo@gmail.hu','Leo','$2a$10$O7IEvhwRfIRE6dvB8FHH4.vvKpKDhLasn6a20ekzg0dbS.j3iu/tq'), --pass: "Leovok1"
+       (2, 'kristof@gmail.hu', 'Kristof','$2a$10$SaPeFYZJS8QzSye/ySdf2uRIoFVwagRckQv2PeMnnC7xvmrH3x0Ym'); --pass: "Kristofvok1"
 
 

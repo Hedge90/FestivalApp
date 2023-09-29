@@ -36,7 +36,6 @@ public class OrganizerController {
         this.validationService = validationService;
     }
 
-
     @PostMapping("/register")
     public ResponseEntity<?> registerOrganizer(@RequestBody NewOrganizerDTO organizerDTO) {
         List<String> validationErrors = validationService.getValidationErrors(organizerDTO);
