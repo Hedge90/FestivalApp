@@ -44,7 +44,7 @@ public class OrganizerControllerTest {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public OrganizerControllerTest(JwtUtil jwtUtil, MyUserDetailsService myUserDetailsService, ObjectMapper mapper, OrganizerRepository organizerRepository, PasswordEncoder passwordEncoder){
+    public OrganizerControllerTest(JwtUtil jwtUtil, MyUserDetailsService myUserDetailsService, ObjectMapper mapper, OrganizerRepository organizerRepository, PasswordEncoder passwordEncoder) {
         this.jwtUtil = jwtUtil;
         this.myUserDetailsService = myUserDetailsService;
         this.mapper = mapper;

@@ -9,7 +9,6 @@ import com.festapp.festapp.services.DayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class DayController {
     public ResponseEntity<?> addNewDay(@RequestBody NewDayDTO dayDTO) {
         try {
             return new ResponseEntity<>(dayService.saveNewDay(dayDTO), HttpStatus.OK);
-        }catch (DayAlreadyExistsException e){
+        } catch (DayAlreadyExistsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

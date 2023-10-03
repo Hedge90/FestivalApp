@@ -10,7 +10,6 @@ import com.festapp.festapp.repositories.OrganizerRepository;
 import com.festapp.festapp.security.MyUserDetails;
 import com.festapp.festapp.security.MyUserDetailsService;
 import com.festapp.festapp.security.util.JwtUtil;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
