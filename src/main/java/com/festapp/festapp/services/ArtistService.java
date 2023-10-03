@@ -5,8 +5,7 @@ import com.festapp.festapp.dtos.NewArtistDTO;
 
 public interface ArtistService {
 
-    public ArtistDTO getArtistByName(String name);
+    ArtistDTO getArtistByName(String name);
 
-    public ArtistDTO createNewArtist(NewArtistDTO newArtistDTO);
-
+    ArtistDTO createNewArtist(NewArtistDTO newArtistDTO);
 }

@@ -76,16 +76,4 @@ class ArtistServiceImplementationTest {
         Assertions.assertEquals(date, storedArtist.getDate());
         Assertions.assertEquals(friday, storedArtist.getDay());
     }
-
-    @Test
-    void createNewArtist_withArtistUnderExitingName_throwsArtistAlreadyExistsException() {
-        LocalDateTime date = LocalDateTime.now();
-        NewArtistDTO newArtistDTO = new NewArtistDTO("Kozso", date, "Friday");
-        Artist storedArtist = new Artist("Kozso", LocalDateTime.now(), new Day());
-        Mockito.when(artistRepository.findArtistByName("Kozso")).thenReturn(Optional.of(storedArtist));
-
-        Assertions.assertThrows(ArtistAlreadyExistsException.class, () -> {
-            artistService.createNewArtist(newArtistDTO);
-        });
-    }
 }

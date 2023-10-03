@@ -1,12 +1,12 @@
 package com.festapp.festapp.services;
 
 import com.festapp.festapp.dtos.NewDayDTO;
+import com.festapp.festapp.entities.Artist;
 import com.festapp.festapp.entities.Day;
 import com.festapp.festapp.enums.DayName;
 import com.festapp.festapp.exceptions.DayAlreadyExistsException;
 import com.festapp.festapp.exceptions.InvalidDayNameException;
 import com.festapp.festapp.repositories.DayRepository;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -26,23 +26,23 @@ public class DayServiceImpl implements DayService {
     @Override
     public NewDayDTO saveNewDay(NewDayDTO dayDTO) {
         try {
-            return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(), validateDayName(dayDTO))));
-        } catch (NullPointerException e){
+            return mapperService.convertDayToNewDayDTO(dayRepository.save(new Day(dayDTO.getDate(), convertStringToDayName(dayDTO.getName()))));
+        } catch (NullPointerException e) {
             throw new InvalidDayNameException();
-        } catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DayAlreadyExistsException();
         }
     }
 
-    private DayName validateDayName(NewDayDTO dayDTO) {
+    @Override
+    public DayName convertStringToDayName(String day) {
         DayName dayName;
         try {
-            dayName = DayName.valueOf(dayDTO.getName().toUpperCase());
+            dayName = DayName.valueOf(day.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new InvalidDayNameException();
         }
         return dayName;
     }
-
 }
 

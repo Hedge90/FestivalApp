@@ -1,5 +1,6 @@
 package com.festapp.festapp.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.festapp.festapp.entities.Day;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ public class ArtistDTO {
 
     private String name;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")
     private LocalDateTime date;
 
     private Day day;

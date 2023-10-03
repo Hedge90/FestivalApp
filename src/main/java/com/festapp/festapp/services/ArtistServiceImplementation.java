@@ -40,9 +40,6 @@ public class ArtistServiceImplementation implements ArtistService {
 
     @Override
     public ArtistDTO createNewArtist(NewArtistDTO newArtistDTO) {
-        if (artistRepository.findArtistByName(newArtistDTO.getName()).isPresent()) {
-            throw new ArtistAlreadyExistsException();
-        }
         Artist artist = artistRepository.save(mapperService.convertNewArtistDTOToArtist(newArtistDTO));
         return mapperService.convertArtistToArtistDTO(artist);
     }
