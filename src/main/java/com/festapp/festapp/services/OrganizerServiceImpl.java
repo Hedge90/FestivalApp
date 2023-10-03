@@ -37,7 +37,7 @@ public class OrganizerServiceImpl implements OrganizerService {
 
     @Override
     public NewOrganizerResponseDTO saveNewOrganizer(NewOrganizerDTO organizerDTO) {
-        if (doesEmailExists(organizerDTO.getEmail())){
+        if (doesEmailExists(organizerDTO.getEmail())) {
             throw new EmailAlreadyExistsException();
         } else {
             Organizer organizer = organizerRepository.save(new Organizer(organizerDTO.getName(), organizerDTO.getEmail(), passwordEncoder.encode(organizerDTO.getPassword())));

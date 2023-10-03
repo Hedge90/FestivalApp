@@ -28,7 +28,7 @@ public class DayServiceImplTest {
     @Test
     public void saveNewDay_withProperNewDayDTO_shouldReturnSavedDay() {
         LocalDate date = LocalDate.of(2023, 9, 6);
-        String dayName = "Friday";
+        String dayName = "Tuesday";
         NewDayDTO dayDTO = new NewDayDTO();
 
         dayDTO.setDate(date);
@@ -39,6 +39,6 @@ public class DayServiceImplTest {
         NewDayDTO savedDay = dayService.saveNewDay(dayDTO);
         assertNotNull(savedDay);
         assertEquals(date, savedDay.getDate());
-        assertEquals("FRIDAY", savedDay.getName());
+        assertEquals("TUESDAY", savedDay.getName());
     }
 }
