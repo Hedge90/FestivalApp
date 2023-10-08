@@ -10,13 +10,13 @@ public class NewArtistDTO {
     @NotEmpty(message = "Name must be included")
     private String name;
 
-    @NotNull(message = "date must be included")
+    @NotNull(message = "Date must be included")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm", timezone = "UTC")
     private LocalDateTime date;
 
     private String bio;
 
-    @NotEmpty(message = "day must be included")
+    @NotEmpty(message = "Day must be included")
     private String day;
 
     public NewArtistDTO() {}

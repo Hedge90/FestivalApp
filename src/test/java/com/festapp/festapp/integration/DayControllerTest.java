@@ -1,5 +1,6 @@
 package com.festapp.festapp.integration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.festapp.festapp.dtos.NewArtistDTO;
 import com.festapp.festapp.dtos.NewDayDTO;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.hasItems;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -118,6 +120,34 @@ public class DayControllerTest {
                         .andExpect(jsonPath("$.day.name").value(day.getName().toString()));
         artistRepository.deleteAll();
         dayRepository.deleteAll();
+    }
+
+    @Test
+    public void addArtistToDay_returnsProperErrorMessage_whenInputIsInvalid() throws Exception {
+        NewArtistDTO artistDTO = new NewArtistDTO(null,null,null);
+        String artistDTOToString = mapper.writeValueAsString(artistDTO);
+        mockMvc.perform(post("/api/days/add-artist")
+                .header("Authorization", generateValidToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(artistDTOToString))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$", hasItems(
+                        "Name must be included",
+                        "Date must be included",
+                        "Day must be included"
+                )));
+    }
+
+    @Test
+    public void addArtistToDay_returnProperErrorMessage_whenDayIsInvalid() throws Exception {
+        NewArtistDTO artistDTO = new NewArtistDTO("Béla", LocalDateTime.of(2024, 8, 1, 20, 0, 0),"Unixisting Day");
+        String artistDTOToString = mapper.writeValueAsString(artistDTO);
+        mockMvc.perform(post("/api/days/add-artist")
+                        .header("Authorization", generateValidToken())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(artistDTOToString))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$").value("There is no such day in the database!"));
     }
 
     private String generateValidToken() {
