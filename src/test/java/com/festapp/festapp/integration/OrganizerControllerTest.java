@@ -81,9 +81,9 @@ public class OrganizerControllerTest {
                         .content(organizerDTOAsString))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$", hasItems(
+                        "Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character",
                         "Name must be included",
-                        "Valid Email is required!",
-                        "Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character"
+                        "Valid Email is required"
                 )));
     }
 

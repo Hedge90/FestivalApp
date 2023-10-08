@@ -44,7 +44,7 @@ public class ValidationServiceImplTest {
 
         assertTrue(validationErrors.size() > 0);
         assertTrue(validationErrors.contains("Name must be included"));
-        assertTrue(validationErrors.contains("Valid Email is required!"));
+        assertTrue(validationErrors.contains("Valid Email is required"));
         assertTrue(validationErrors.contains("Password must be at least 6 characters long and contain at least one capital letter and one non-alphabetical character"));
     }
 }

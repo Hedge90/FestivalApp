@@ -6,6 +6,7 @@ import com.festapp.festapp.dtos.NewDayDTO;
 import com.festapp.festapp.entities.Day;
 import com.festapp.festapp.entities.Organizer;
 import com.festapp.festapp.enums.DayName;
+import com.festapp.festapp.repositories.ArtistRepository;
 import com.festapp.festapp.repositories.DayRepository;
 import com.festapp.festapp.repositories.OrganizerRepository;
 import com.festapp.festapp.security.MyUserDetails;
@@ -46,16 +47,18 @@ public class DayControllerTest {
     private DayRepository dayRepository;
     private OrganizerRepository organizerRepository;
     private DayService dayService;
+    private ArtistRepository artistRepository;
 
     @Autowired
     public DayControllerTest(JwtUtil jwtUtil, MyUserDetailsService myUserDetailsService, ObjectMapper mapper, DayRepository dayRepository,
-                             OrganizerRepository organizerRepository, DayService dayService) {
+                             OrganizerRepository organizerRepository, DayService dayService, ArtistRepository artistRepository) {
         this.jwtUtil = jwtUtil;
         this.myUserDetailsService = myUserDetailsService;
         this.mapper = mapper;
         this.dayRepository = dayRepository;
         this.organizerRepository = organizerRepository;
         this.dayService = dayService;
+        this.artistRepository = artistRepository;
     }
 
     @Test
@@ -99,25 +102,22 @@ public class DayControllerTest {
 
     @Test
     public void addArtistToDay_returnsArtistDTO_whenRequestIsValid() throws Exception {
-        dayRepository.save(new Day(LocalDate.of(2024,8,1), DayName.FRIDAY));
-        NewArtistDTO artist = new NewArtistDTO("David Getta", LocalDateTime.of(2024,8,1,20,00,00),"Friday");
-        Optional<Day> day = dayRepository.findDayByName(dayService.convertStringToDayName(artist.getDay()));
+        Day day = new Day(LocalDate.of(2024, 8, 1), DayName.FRIDAY);
+        dayRepository.save(day);
+        NewArtistDTO artist = new NewArtistDTO("David Getta", LocalDateTime.of(2024, 8, 1, 20, 0, 0), "Friday");
         String artistToString = mapper.writeValueAsString(artist);
         mockMvc.perform(post("/api/days/add-artist")
-                .header("Authorization", generateValidToken())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(artistToString))
+                        .header("Authorization", generateValidToken())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(artistToString))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(artist.getName()))
                 .andExpect(jsonPath("$.date").value(artist.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))))
-                .andExpect(jsonPath("$.day.id").value(day.map(Day::getId).orElse(null)))
-                .andExpect(jsonPath("$.day.date").value(day.map(Day::getDate).map(Object::toString).orElse(null)))
-                .andExpect(jsonPath("$.day.name").value(day.map(Day::getName).map(Object::toString).orElse(null)));
-    }
-
-    @Test
-    public void addArtistToDay_returnsProperErrorMessage_withInvalidInputs(){
-
+                        .andExpect(jsonPath("$.day.id").value(day.getId()))
+                        .andExpect(jsonPath("$.day.date").value(day.getDate().toString()))
+                        .andExpect(jsonPath("$.day.name").value(day.getName().toString()));
+        artistRepository.deleteAll();
+        dayRepository.deleteAll();
     }
 
     private String generateValidToken() {
